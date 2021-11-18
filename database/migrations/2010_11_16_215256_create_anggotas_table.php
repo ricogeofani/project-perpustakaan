@@ -17,7 +17,7 @@ class CreateAnggotasTable extends Migration
             $table->id();
             $table->string('nama', 64);
             $table->char('sex', 1);
-            $table->char('telp', 15);
+            $table->char('telp', 20);
             $table->text('alamat');
             $table->string('email', 64);
             $table->timestamps();

@@ -18,9 +18,9 @@ class CreateBukusTable extends Migration
             $table->integer('isbn');
             $table->string('judul', 64);
             $table->integer('tahun');
-            $table->unsignedBigInteger('id_penerbit');
-            $table->unsignedBigInteger('id_pengarang');
-            $table->unsignedBigInteger('id_katalog');
+            $table->unsignedBigInteger('id_penerbit')->nullable();
+            $table->unsignedBigInteger('id_pengarang')->nullable();
+            $table->unsignedBigInteger('id_katalog')->nullable();
             $table->integer('qty_stok');
             $table->integer('harga_pinjam');
             $table->timestamps();

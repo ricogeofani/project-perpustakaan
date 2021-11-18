@@ -17,7 +17,7 @@ class CreatePengarangsTable extends Migration
             $table->id();
             $table->string('nama_pengarang', 64);
             $table->string('email', 50);
-            $table->char('telp', 14);
+            $table->char('telp', 20);
             $table->text('alamat');
             $table->timestamps();
         });

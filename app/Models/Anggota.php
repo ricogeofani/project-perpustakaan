@@ -8,4 +8,13 @@ use Illuminate\Database\Eloquent\Model;
 class Anggota extends Model
 {
     use HasFactory;
+    public function user()
+    {
+        return $this->hasOne(User::class, 'id_anggota');
+    }
+
+    public function peminjaman()
+    {
+        return $this->hasMany(Peminjaman::class, 'id_anggota');
+    }
 }
