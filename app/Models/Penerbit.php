@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Penerbit extends Model
 {
     use HasFactory;
+    protected $fillable = ['nama_penerbit', 'email', 'telp', 'alamat'];
 
     public function buku()
     {

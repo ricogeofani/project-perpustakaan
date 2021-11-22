@@ -24,7 +24,7 @@ class KatalogController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.katalog.add_katalog');
     }
 
     /**
@@ -35,7 +35,17 @@ class KatalogController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+            'nama' => ['required'],
+        ]);
+        Katalog::create([
+            'nama_katalog' => $request->nama,
+        ]);
+        // $katalog = new Katalog;
+        // $katalog->nama_katalog = $request->nama;
+        // $katalog->save();
+
+        return redirect('katalog');
     }
 
     /**
@@ -57,7 +67,7 @@ class KatalogController extends Controller
      */
     public function edit(Katalog $katalog)
     {
-        //
+        return view('admin.katalog.edit_katalog', compact('katalog'));
     }
 
     /**
@@ -69,7 +79,14 @@ class KatalogController extends Controller
      */
     public function update(Request $request, Katalog $katalog)
     {
-        //
+        $this->validate($request, [
+            'nama' => ['required'],
+        ]);
+        $katalog->update([
+            'nama_katalog' => $request->nama,
+        ]);
+
+        return redirect('katalog');
     }
 
     /**
@@ -80,6 +97,7 @@ class KatalogController extends Controller
      */
     public function destroy(Katalog $katalog)
     {
-        //
+        $katalog->delete();
+        return redirect('katalog');
     }
 }

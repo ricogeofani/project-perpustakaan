@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Penerbit;
+use Error;
 use Illuminate\Http\Request;
 
 class PenerbitController extends Controller
@@ -24,7 +25,7 @@ class PenerbitController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.penerbit.add_penerbit');
     }
 
     /**
@@ -35,7 +36,20 @@ class PenerbitController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+            'nama'  => ['required'],
+            'email' => ['required'],
+            'telp'  => ['required'],
+            'alamat' => ['required']
+        ]);
+        Penerbit::create([
+            'nama_penerbit' => $request->nama,
+            'email'         => $request->email,
+            'telp'          => $request->telp,
+            'alamat'        => $request->alamat
+        ]);
+
+        return redirect('/penerbit');
     }
 
     /**
@@ -57,7 +71,7 @@ class PenerbitController extends Controller
      */
     public function edit(Penerbit $penerbit)
     {
-        //
+        return view('admin.penerbit.edit_penerbit', compact('penerbit'));
     }
 
     /**
@@ -69,7 +83,20 @@ class PenerbitController extends Controller
      */
     public function update(Request $request, Penerbit $penerbit)
     {
-        //
+        $this->validate($request, [
+            'nama'  => ['required'],
+            'email' => ['required'],
+            'telp'  => ['required'],
+            'alamat' => ['required']
+        ]);
+        $penerbit->update([
+            'nama_penerbit' => $request->nama,
+            'email'         => $request->email,
+            'telp'          => $request->telp,
+            'alamat'        => $request->alamat
+        ]);
+
+        return redirect('penerbit');
     }
 
     /**
@@ -80,6 +107,8 @@ class PenerbitController extends Controller
      */
     public function destroy(Penerbit $penerbit)
     {
-        //
+
+        $penerbit->delete();
+        return redirect('penerbit');
     }
 }

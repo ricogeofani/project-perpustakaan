@@ -27,35 +27,35 @@ class AdminController extends Controller
         // return $data;
 
         //query builder
-        $total_anggota = DB::table('anggotas')->count();
-        $data_buku = DB::table('bukus')->join('penerbits', 'id_penerbit', '=', 'penerbits.id')->get();
-        $data_buku_penerbit = DB::table('bukus')->whereBetween('id_penerbit', [3, 6])->get();
-        $data_buku_pengarang = DB::table('bukus')->where('id_pengarang', 4)->first();
-        $data_penerbit = DB::table('penerbits')->find(2);
-        $data_katalog = DB::table('katalogs')->where('nama_katalog', 'like', '%o%')->orderBy('id', 'desc')->get();
-        $data_buku_harga = DB::table('bukus')->max('harga_pinjam');
-        $data_pengarang = DB::table('pengarangs')->addSelect('nama_pengarang', 'telp', 'alamat')->get();
-        $data_anggotas = DB::table('anggotas')->where('sex', '=', 'L')->get();
+        // $total_anggota = DB::table('anggotas')->count();
+        // $data_buku = DB::table('bukus')->join('penerbits', 'id_penerbit', '=', 'penerbits.id')->get();
+        // $data_buku_penerbit = DB::table('bukus')->whereBetween('id_penerbit', [3, 6])->get();
+        // $data_buku_pengarang = DB::table('bukus')->where('id_pengarang', 4)->first();
+        // $data_penerbit = DB::table('penerbits')->find(2);
+        // $data_katalog = DB::table('katalogs')->where('nama_katalog', 'like', '%o%')->orderBy('id', 'desc')->get();
+        // $data_buku_harga = DB::table('bukus')->max('harga_pinjam');
+        // $data_pengarang = DB::table('pengarangs')->addSelect('nama_pengarang', 'telp', 'alamat')->get();
+        // $data_anggotas = DB::table('anggotas')->where('sex', '=', 'L')->get();
 
-        $data_buku_stok = DB::table('bukus')
-            ->select('qty_stok', DB::raw('sum(qty_stok) as total_stok'), DB::raw('count(qty_stok) as jumlah_stok'))
-            ->groupBy('qty_stok')
-            ->get();
-
-
-        return $data_anggotas;
+        // $data_buku_stok = DB::table('bukus')
+        //     ->select('qty_stok', DB::raw('sum(qty_stok) as total_stok'), DB::raw('count(qty_stok) as jumlah_stok'))
+        //     ->groupBy('qty_stok')
+        //     ->get();
+        // return $data_anggotas;
 
         return view('admin/dashboard');
     }
 
     public function katalog()
     {
-        return view('admin.katalog');
+        $data_katalogs = DB::table('katalogs')->get();
+        return view('admin.katalog.katalog', compact('data_katalogs'));
     }
 
     public function penerbit()
     {
-        return view('admin.penerbit');
+        $data_penerbits = DB::table('penerbits')->get();
+        return view('admin.penerbit.penerbit', compact('data_penerbits'));
     }
 
     public function pengarang()
