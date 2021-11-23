@@ -48,19 +48,20 @@ class AdminController extends Controller
 
     public function katalog()
     {
-        $data_katalogs = DB::table('katalogs')->get();
+        $data_katalogs = Katalog::all();
         return view('admin.katalog.katalog', compact('data_katalogs'));
     }
 
     public function penerbit()
     {
-        $data_penerbits = DB::table('penerbits')->get();
+        $data_penerbits = Penerbit::all();
         return view('admin.penerbit.penerbit', compact('data_penerbits'));
     }
 
     public function pengarang()
     {
-        return view('admin.pengarang');
+        $data_pengarangs = Pengarang::all();
+        return view('admin.pengarang.pengarang', compact('data_pengarangs'));
     }
 
     public function anggota()

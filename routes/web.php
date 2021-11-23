@@ -4,6 +4,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AdminController;
 use App\Http\Controllers\KatalogController;
 use App\Http\Controllers\PenerbitController;
+use App\Http\Controllers\PengarangController;
+use App\Models\Pengarang;
 
 /*
 |--------------------------------------------------------------------------
@@ -37,4 +39,5 @@ Route::get('/anggota', [AdminController::class, 'anggota']);
 Route::prefix('data')->group(function () {
     Route::resource('/katalog', KatalogController::class);
     Route::resource('/penerbit', PenerbitController::class);
+    Route::resource('/pengarang', PengarangController::class);
 });

@@ -25,7 +25,6 @@ class PenerbitController extends Controller
      */
     public function create()
     {
-        return view('admin.penerbit.add_penerbit');
     }
 
     /**
@@ -49,7 +48,7 @@ class PenerbitController extends Controller
             'alamat'        => $request->alamat
         ]);
 
-        return redirect('/penerbit');
+        return back();
     }
 
     /**
@@ -71,7 +70,6 @@ class PenerbitController extends Controller
      */
     public function edit(Penerbit $penerbit)
     {
-        return view('admin.penerbit.edit_penerbit', compact('penerbit'));
     }
 
     /**
@@ -96,7 +94,7 @@ class PenerbitController extends Controller
             'alamat'        => $request->alamat
         ]);
 
-        return redirect('penerbit');
+        return back();
     }
 
     /**
@@ -109,6 +107,6 @@ class PenerbitController extends Controller
     {
 
         $penerbit->delete();
-        return redirect('penerbit');
+        return back();
     }
 }
