@@ -2,8 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Penerbit;
-use Error;
+use App\models\Penerbit;
 use Illuminate\Http\Request;
 
 class PenerbitController extends Controller
@@ -15,16 +14,10 @@ class PenerbitController extends Controller
      */
     public function index()
     {
-        //
-    }
+        $datas = Penerbit::all();
+        $datatables = datatables()->of($datas)->addIndexColumn();
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
+        return $datatables->make(true);
     }
 
     /**
@@ -36,40 +29,14 @@ class PenerbitController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'nama'  => ['required'],
+            'nama_penerbit'  => ['required'],
             'email' => ['required'],
             'telp'  => ['required'],
             'alamat' => ['required']
         ]);
-        Penerbit::create([
-            'nama_penerbit' => $request->nama,
-            'email'         => $request->email,
-            'telp'          => $request->telp,
-            'alamat'        => $request->alamat
-        ]);
+        Penerbit::create($request->all());
 
         return back();
-    }
-
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Penerbit  $penerbit
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Penerbit $penerbit)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Penerbit  $penerbit
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Penerbit $penerbit)
-    {
     }
 
     /**
@@ -82,17 +49,12 @@ class PenerbitController extends Controller
     public function update(Request $request, Penerbit $penerbit)
     {
         $this->validate($request, [
-            'nama'  => ['required'],
+            'nama_penerbit'  => ['required'],
             'email' => ['required'],
             'telp'  => ['required'],
             'alamat' => ['required']
         ]);
-        $penerbit->update([
-            'nama_penerbit' => $request->nama,
-            'email'         => $request->email,
-            'telp'          => $request->telp,
-            'alamat'        => $request->alamat
-        ]);
+        $penerbit->update($request->all());
 
         return back();
     }

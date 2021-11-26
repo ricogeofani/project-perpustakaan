@@ -5,6 +5,7 @@ use App\Http\Controllers\AdminController;
 use App\Http\Controllers\KatalogController;
 use App\Http\Controllers\PenerbitController;
 use App\Http\Controllers\PengarangController;
+use App\Http\Controllers\AnggotaController;
 use App\Models\Pengarang;
 
 /*
@@ -37,6 +38,7 @@ Route::get('/pengarang', [AdminController::class, 'pengarang']);
 Route::get('/anggota', [AdminController::class, 'anggota']);
 
 Route::prefix('data')->group(function () {
+    Route::resource('/anggota', AnggotaController::class);
     Route::resource('/katalog', KatalogController::class);
     Route::resource('/penerbit', PenerbitController::class);
     Route::resource('/pengarang', PengarangController::class);

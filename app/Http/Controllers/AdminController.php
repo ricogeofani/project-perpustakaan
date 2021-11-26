@@ -66,6 +66,7 @@ class AdminController extends Controller
 
     public function anggota()
     {
-        return view('admin.anggota');
+        $data_anggotas = Anggota::all();
+        return view('admin.anggota.anggota', compact('data_anggotas'));
     }
 }

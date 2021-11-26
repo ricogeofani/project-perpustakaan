@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Anggota;
+use App\models\Anggota;
 use Illuminate\Http\Request;
 
 class AnggotaController extends Controller
@@ -14,16 +14,10 @@ class AnggotaController extends Controller
      */
     public function index()
     {
-    }
+        $datas = Anggota::all();
+        $datatables = datatables()->of($datas)->addIndexColumn();
 
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+        return $datatables->make(true);
     }
 
     /**
@@ -34,51 +28,63 @@ class AnggotaController extends Controller
      */
     public function store(Request $request)
     {
-        //
-    }
+        $this->validate($request, [
+            'nama' => ['required'],
+            'sex' => ['required'],
+            'telp' => ['required'],
+            'alamat' => ['required'],
+            'email' => ['required'],
+        ]);
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Anggota  $anggota
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Anggota $anggota)
-    {
-        //
-    }
+        Anggota::create([
+            'nama' => $request->nama,
+            'sex' => $request->sex,
+            'telp' => $request->telp,
+            'alamat' => $request->alamat,
+            'email' => $request->email
+        ]);
 
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Anggota  $anggota
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Anggota $anggota)
-    {
-        //
+        return back();
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Anggota  $anggota
+     * @param  \App\Anggota  $anggota
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Anggota $anggota)
+    public function update(Request $request, Anggota $anggota, $id)
     {
-        //
+        $this->validate($request, [
+            'nama' => ['required'],
+            'sex' => ['required'],
+            'telp' => ['required'],
+            'alamat' => ['required'],
+            'email' => ['required'],
+        ]);
+        $anggota = $anggota::find($id);
+        $anggota->update([
+            'nama' => $request->nama,
+            'sex' => $request->sex,
+            'telp' => $request->telp,
+            'alamat' => $request->alamat,
+            'email' => $request->email
+        ]);
+
+        return back();
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Anggota  $anggota
+     * @param  \App\Anggota  $anggota
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Anggota $anggota)
+    public function destroy(Anggota $anggota, $id)
     {
-        //
+        $anggota = $anggota::find($id);
+        $anggota->delete();
+        return back();
     }
 }

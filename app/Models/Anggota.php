@@ -8,6 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class Anggota extends Model
 {
     use HasFactory;
+    protected $fillable = ['nama', 'sex', 'telp', 'alamat', 'email'];
+
     public function user()
     {
         return $this->hasOne(User::class, 'id_anggota');

@@ -14,7 +14,10 @@ class PengarangController extends Controller
      */
     public function index()
     {
-        //
+        $datas = Pengarang::all();
+        $datatables = datatables()->of($datas)->addIndexColumn();
+
+        return $datatables->make(true);
     }
 
     /**
