@@ -14,17 +14,8 @@ class BukuController extends Controller
      */
     public function index()
     {
-        //
-    }
-
-    /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
-     */
-    public function create()
-    {
-        //
+        $data = Buku::all();
+        return json_encode($data);
     }
 
     /**
@@ -35,51 +26,54 @@ class BukuController extends Controller
      */
     public function store(Request $request)
     {
-        //
-    }
+        $this->validate($request, [
+            "isbn" => ["required"],
+            "judul" => ["required"],
+            "tahun" => ["required"],
+            "id_penerbit" => ["required"],
+            "id_pengarang" => ["required"],
+            "id_katalog" => ["required"],
+            "qty_stok" => ["required"],
+            "harga_pinjam" => ["required"],
+        ]);
 
-    /**
-     * Display the specified resource.
-     *
-     * @param  \App\Models\Buku  $buku
-     * @return \Illuminate\Http\Response
-     */
-    public function show(Buku $buku)
-    {
-        //
-    }
-
-    /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  \App\Models\Buku  $buku
-     * @return \Illuminate\Http\Response
-     */
-    public function edit(Buku $buku)
-    {
-        //
+        Buku::create($request->all());
+        return back();
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Buku  $buku
+     * @param  \App\Buku  $buku
      * @return \Illuminate\Http\Response
      */
     public function update(Request $request, Buku $buku)
     {
-        //
+        $this->validate($request, [
+            "isbn" => ["required"],
+            "judul" => ["required"],
+            "tahun" => ["required"],
+            "id_penerbit" => ["required"],
+            "id_pengarang" => ["required"],
+            "id_katalog" => ["required"],
+            "qty_stok" => ["required"],
+            "harga_pinjam" => ["required"],
+        ]);
+
+        $buku->update($request->all());
+        return back();
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Buku  $buku
+     * @param  \App\Buku  $buku
      * @return \Illuminate\Http\Response
      */
     public function destroy(Buku $buku)
     {
-        //
+        $buku->delete();
+        return back();
     }
 }

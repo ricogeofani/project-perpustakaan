@@ -6,6 +6,7 @@ use App\Http\Controllers\KatalogController;
 use App\Http\Controllers\PenerbitController;
 use App\Http\Controllers\PengarangController;
 use App\Http\Controllers\AnggotaController;
+use App\Http\Controllers\BukuController;
 use App\Models\Pengarang;
 
 /*
@@ -36,10 +37,12 @@ Route::get('/katalog', [AdminController::class, 'katalog']);
 Route::get('/penerbit', [AdminController::class, 'penerbit']);
 Route::get('/pengarang', [AdminController::class, 'pengarang']);
 Route::get('/anggota', [AdminController::class, 'anggota']);
+Route::get('/buku', [AdminController::class, 'buku']);
 
 Route::prefix('data')->group(function () {
     Route::resource('/anggota', AnggotaController::class);
     Route::resource('/katalog', KatalogController::class);
     Route::resource('/penerbit', PenerbitController::class);
     Route::resource('/pengarang', PengarangController::class);
+    Route::resource('/buku', BukuController::class);
 });

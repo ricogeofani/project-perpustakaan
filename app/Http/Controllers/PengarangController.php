@@ -44,12 +44,7 @@ class PengarangController extends Controller
             'telp'  => ['required'],
             'alamat' => ['required']
         ]);
-        Pengarang::create([
-            'nama_pengarang' => $request->nama,
-            'email'         => $request->email,
-            'telp'          => $request->telp,
-            'alamat'        => $request->alamat
-        ]);
+        Pengarang::create($request->all());
 
         return back();
     }
@@ -91,12 +86,7 @@ class PengarangController extends Controller
             'telp'  => ['required'],
             'alamat' => ['required']
         ]);
-        $pengarang->update([
-            'nama_pengarang' => $request->nama,
-            'email'         => $request->email,
-            'telp'          => $request->telp,
-            'alamat'        => $request->alamat
-        ]);
+        $pengarang->update($request->all());
 
         return back();
     }

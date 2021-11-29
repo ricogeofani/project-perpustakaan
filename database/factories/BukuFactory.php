@@ -13,12 +13,15 @@ class BukuFactory extends Factory
      */
     public function definition()
     {
-        return [
-            'isbn' => $this->faker->numerify('######'),
-            'judul' => $this->faker->word(),
-            'tahun' => $this->faker->year($max = 'now'),
-            'qty_stok' => $this->faker->numberBetween($min = 5, $max = 100),
-            'harga_pinjam' => $this->faker->numberBetween($min = 5000, $max = 50000)
-        ];
+        // return [
+        //     'isbn' =>  rand(111111, 999999),
+        //     'judul' => $this->faker->name,
+        //     'tahun' => rand(2015, 2021),
+        //     'id_penerbit' => rand(1, 8),
+        //     'id_pengarang' => rand(1, 8),
+        //     'id_katalog' => rand(1, 6),
+        //     'qty_stok' => rand(5, 20),
+        //     'harga_pinjam' => rand(5000, 20000)
+        // ];
     }
 }

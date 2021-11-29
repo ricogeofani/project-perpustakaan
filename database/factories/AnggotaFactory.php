@@ -13,14 +13,14 @@ class AnggotaFactory extends Factory
      */
     public function definition()
     {
-        $gender = $this->faker->randomElement(['male' => 'L', 'female' => 'P']);
+        // $gender = $this->faker->randomElement(['male' => 'L', 'female' => 'P']);
 
-        return [
-            'nama' => $this->faker->name($gender),
-            'sex' => $gender,
-            'telp' => $this->faker->PhoneNumber,
-            'alamat' => $this->faker->address(),
-            'email' => $this->faker->unique()->safeEmail(),
-        ];
+        // return [
+        //     'nama' => $this->faker->name($gender),
+        //     'sex' => $gender,
+        //     'telp' => $this->faker->PhoneNumber,
+        //     'alamat' => $this->faker->address(),
+        //     'email' => $this->faker->unique()->safeEmail(),
+        // ];
     }
 }

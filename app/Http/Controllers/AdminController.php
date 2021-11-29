@@ -69,4 +69,12 @@ class AdminController extends Controller
         $data_anggotas = Anggota::all();
         return view('admin.anggota.anggota', compact('data_anggotas'));
     }
+    public function buku()
+    {
+        $data_bukus = Buku::with('penerbit', 'pengarang', 'katalog')->get();
+        $data_penerbits = Penerbit::all();
+        $data_pengarangs = Pengarang::all();
+        $data_katalogs = Katalog::all();
+        return view('admin.buku', compact(['data_bukus', 'data_penerbits', 'data_pengarangs', 'data_katalogs']));
+    }
 }

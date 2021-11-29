@@ -13,8 +13,8 @@ class KatalogFactory extends Factory
      */
     public function definition()
     {
-        return [
-            'nama_katalog' => $this->faker->word(),
-        ];
+        // return [
+        //     'nama_katalog' => $this->faker->word(),
+        // ];
     }
 }

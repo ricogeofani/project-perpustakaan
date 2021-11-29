@@ -13,11 +13,11 @@ class PengarangFactory extends Factory
      */
     public function definition()
     {
-        return [
-            'nama_pengarang' => $this->faker->name(),
-            'email' => $this->faker->unique()->safeEmail(),
-            'telp' => $this->faker->PhoneNumber,
-            'alamat' => $this->faker->address(),
-        ];
+        // return [
+        //     'nama_pengarang' => $this->faker->name(),
+        //     'email' => $this->faker->unique()->safeEmail(),
+        //     'telp' => $this->faker->PhoneNumber,
+        //     'alamat' => $this->faker->address(),
+        // ];
     }
 }

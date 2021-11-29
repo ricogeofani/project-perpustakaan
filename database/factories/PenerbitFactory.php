@@ -13,11 +13,11 @@ class PenerbitFactory extends Factory
      */
     public function definition()
     {
-        return [
-            'nama_penerbit' => $this->faker->name(),
-            'email' => $this->faker->unique()->safeEmail(),
-            'telp' => $this->faker->PhoneNumber,
-            'alamat' => $this->faker->address(),
-        ];
+        // return [
+        //     'nama_penerbit' => $this->faker->name(),
+        //     'email' => $this->faker->unique()->safeEmail(),
+        //     'telp' => $this->faker->PhoneNumber,
+        //     'alamat' => $this->faker->address(),
+        // ];
     }
 }

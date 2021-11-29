@@ -103,6 +103,14 @@
               </p>
             </a>
           </li>
+          <li class="nav-item menu-open">
+            <a href="{{ url('buku') }}" class="nav-link {{ request()->is('buku') ? 'active' : '' }} ">
+                <i class="nav-icon fas fa-th"></i>
+              <p>
+                Buku
+              </p>
+            </a>
+          </li>
           <li class="nav-item">
             <a href="#" class="nav-link">
               <i class="nav-icon fas fa-tachometer-alt"></i>

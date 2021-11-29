@@ -36,13 +36,7 @@ class AnggotaController extends Controller
             'email' => ['required'],
         ]);
 
-        Anggota::create([
-            'nama' => $request->nama,
-            'sex' => $request->sex,
-            'telp' => $request->telp,
-            'alamat' => $request->alamat,
-            'email' => $request->email
-        ]);
+        Anggota::create($request->all());
 
         return back();
     }
@@ -54,6 +48,7 @@ class AnggotaController extends Controller
      * @param  \App\Anggota  $anggota
      * @return \Illuminate\Http\Response
      */
+    // $id karena biasanya id nya tidak di bawah
     public function update(Request $request, Anggota $anggota, $id)
     {
         $this->validate($request, [
@@ -63,14 +58,8 @@ class AnggotaController extends Controller
             'alamat' => ['required'],
             'email' => ['required'],
         ]);
-        $anggota = $anggota::find($id);
-        $anggota->update([
-            'nama' => $request->nama,
-            'sex' => $request->sex,
-            'telp' => $request->telp,
-            'alamat' => $request->alamat,
-            'email' => $request->email
-        ]);
+        $anggota = Anggota::find($id);
+        $anggota->update($request->all());
 
         return back();
     }
@@ -83,7 +72,7 @@ class AnggotaController extends Controller
      */
     public function destroy(Anggota $anggota, $id)
     {
-        $anggota = $anggota::find($id);
+        $anggota = Anggota::find($id);
         $anggota->delete();
         return back();
     }
