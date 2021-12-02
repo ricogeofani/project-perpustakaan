@@ -8,7 +8,7 @@ use App\Models\Penerbit;
 use App\Models\Pengarang;
 use App\models\Katalog;
 use App\Models\Buku;
-
+use App\Models\DetailPeminjaman;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -43,7 +43,40 @@ class AdminController extends Controller
         //     ->get();
         // return $data_anggotas;
 
-        return view('admin/dashboard');
+        // data total
+        $total_buku = Buku::count();
+        $total_anggota = Anggota::count();
+        $total_peminjaman = Peminjaman::whereMonth('tgl_pinjam', date('m'))->count();
+        $total_penerbit = Penerbit::count();
+
+        // data grafik donut
+        $data_donut = Buku::select(DB::raw("COUNT(id_penerbit) as total"))->groupBy('id_penerbit')->orderBy('id_penerbit', 'asc')->pluck('total');
+        $label_donut = Penerbit::orderBy('penerbits.id', 'asc')->join('bukus', 'bukus.id_penerbit', '=', 'penerbits.id')->groupBy('nama_penerbit')->pluck('nama_penerbit');
+
+        //data grafik bar
+        $label_bar = ['Peminjaman', 'Pengembalian'];
+        $data_bar = [];
+
+        foreach ($label_bar as $key => $value) {
+            $data_bar[$key]['label'] = $label_bar[$key];
+            $data_bar[$key]['backgroundColor'] = $key == 0 ? 'rgba(60, 141, 188, 0.9)' : 'rgba(210, 214, 222, 1)';
+            $data_month = [];
+
+            foreach (range(1, 12) as $month) {
+                if ($key == 0) {
+                    $data_month[] = Peminjaman::select(DB::raw('COUNT(*) as total'))->whereMonth('tgl_pinjam', $month)->first()->total;
+                } else {
+                    $data_month[] = Peminjaman::select(DB::raw('COUNT(*) as total'))->whereMonth('tgl_kembali', $month)->first()->total;
+                }
+            }
+            $data_bar[$key]['data'] = $data_month;
+        }
+
+        //data grafik pie
+        $data_pie = Buku::select(DB::raw('COUNT(id_pengarang) as total'))->groupBy('id_pengarang')->orderBy('id_pengarang', 'asc')->pluck('total');
+        $label_pie = Pengarang::orderBy('pengarangs.id', 'asc')->join('bukus', 'bukus.id_pengarang', '=', 'pengarangs.id')->groupBy('nama_pengarang')->pluck('nama_pengarang');
+
+        return view('admin/dashboard', compact('total_buku', 'total_anggota', 'total_peminjaman', 'total_penerbit', 'data_donut', 'label_donut', 'data_bar', 'data_pie', 'label_pie'));
     }
 
     public function katalog()
