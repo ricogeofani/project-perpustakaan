@@ -27,7 +27,7 @@
   <link rel="stylesheet" href="{{ asset('plugins/daterangepicker/daterangepicker.css') }}">
   <!-- summernote -->
   <link rel="stylesheet" href="{{ asset('plugins/summernote/summernote-bs4.min.css') }}">
-
+  
   {{-- punya vue --}}
   @stack('css')
 </head>
@@ -56,18 +56,36 @@
 
     <ul class="navbar-nav ml-auto">
         <li class="nav-item">
-            {{-- <a href="#" class="nav-link" role="button">
-                Logout
-            </a> --}}
-            <a class="dropdown-item" href="{{ route('logout') }}"
-            onclick="event.preventDefault();
-                          document.getElementById('logout-form').submit();">
-             Logout
+          <li class="nav-item dropdown">
+            <a class="nav-link" data-toggle="dropdown" href="#">
+              <i class="far fa-bell"></i>
+              <span class="badge badge-warning navbar-badge">{{ total_telat() }}</span>
             </a>
-
-            <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
-                @csrf
-            </form>
+            <div class="dropdown-menu dropdown-menu-xl dropdown-menu-right">
+              <span class="dropdown-item dropdown-header"><h4>{{ total_telat() }} Anggota</h4></span>
+              <div class="dropdown-divider"></div>
+              <a href="#" class="dropdown-item">
+                @foreach (anggota_telat() as $data)
+                    <p class="font-weight-bold"><i class="fa fa-chevron-right"></i> {{ $data['anggota']['nama'] }}  melewati batas waktu {{ $data->telat_pengembalian }} hari</p>
+                    <br>
+                @endforeach
+                <span class="float-right text-muted text-sm">{{ now() }}</span>
+              </a>
+              <div class="dropdown-divider"></div>
+              <div class="dropdown-divider"></div>
+              <a href="{{ url('peminjaman') }}" class="dropdown-item dropdown-footer">See All Detail Notifications</a>
+            </div>
+          </li>
+          <li class="nav-item">
+            <a class="dropdown-item" href="{{ route('logout') }}"
+                  onclick="event.preventDefault();
+                  document.getElementById('logout-form').submit();">
+                    Logout
+              </a>
+              <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">
+                  @csrf
+              </form>
+          </li>
         </li>
     </ul>
   </nav>
@@ -104,8 +122,16 @@
             </a>
           </li>
           <li class="nav-item menu-open">
+              <a href="{{ url('peminjaman') }}" class="nav-link {{ request()->is('peminjaman') ? 'active' : '' }}">
+                <i class="fa fa-handshake"></i>
+                <p>
+                  Peminjaman
+                </p>
+              </a>
+          </li>
+          <li class="nav-item menu-open">
             <a href="{{ url('buku') }}" class="nav-link {{ request()->is('buku') ? 'active' : '' }} ">
-                <i class="nav-icon fas fa-th"></i>
+                <i class="nav-icon fas fa-book"></i>
               <p>
                 Buku
               </p>

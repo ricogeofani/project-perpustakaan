@@ -7,7 +7,8 @@ use App\Http\Controllers\PenerbitController;
 use App\Http\Controllers\PengarangController;
 use App\Http\Controllers\AnggotaController;
 use App\Http\Controllers\BukuController;
-
+use App\Http\Controllers\PeminjamanController;
+use App\Http\Controllers\DetailPeminjamanController;
 use App\Models\Pengarang;
 
 /*
@@ -39,6 +40,8 @@ Route::get('/penerbit', [AdminController::class, 'penerbit']);
 Route::get('/pengarang', [AdminController::class, 'pengarang']);
 Route::get('/anggota', [AdminController::class, 'anggota']);
 Route::get('/buku', [AdminController::class, 'buku']);
+Route::get('/peminjaman', [AdminController::class, 'peminjaman']);
+Route::get('/test_spatie', [AdminController::class, 'test_spatie']);
 
 Route::prefix('data')->group(function () {
     Route::resource('/anggota', AnggotaController::class);
@@ -46,4 +49,5 @@ Route::prefix('data')->group(function () {
     Route::resource('/penerbit', PenerbitController::class);
     Route::resource('/pengarang', PengarangController::class);
     Route::resource('/buku', BukuController::class);
+    Route::resource('/peminjaman', PeminjamanController::class);
 });

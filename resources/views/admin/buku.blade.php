@@ -133,7 +133,7 @@
 
 @push("js")
 <script>
-    let actionUrl = "{{ url('data/buku') }}";
+    let actionUrl = '{{ url('data/buku') }}';
     let app = new Vue({
         el: "#controller",
         data: {

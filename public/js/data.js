@@ -27,6 +27,10 @@
                     _this.datas = _this.table.ajax.json().data;
                 });
             },
+            detailData(event, index) {
+                this.data = this.datas[index];
+                $('#modal-detail').modal();
+            },
             addData() {
                 this.editStatus = false;
                 this.data = {};
@@ -57,7 +61,7 @@
                     $('#modal-default').modal('hide')
                     _this.table.ajax.reload();
                 });
-            }
+            },
         }
 });
 

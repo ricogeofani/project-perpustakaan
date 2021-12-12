@@ -16,7 +16,18 @@
         <div class="col-md">
             <div class="card">
                 <div class="card-header">
-                    <a href="#" @click="addData()" class="btn btn-sm btn-primary pull-right">Add Anggota</a>
+                    <div class="row">
+                        <div class="col-md-10">
+                            <a href="#" @click="addData()" class="btn btn-sm btn-primary pull-right">Add Anggota</a>
+                        </div>
+                        <div class="col-md-2">
+                            <select class="form-control" name="sex">
+                                <option value="0">Semua Jenis Kelamin</option>
+                                <option value="L">Laki-Laki</option>
+                                <option value="P">Perempuan</option>
+                            </select>
+                        </div>
+                    </div>
                 </div>
                 <div class="card-body">
                     <table id="datatable" class="table table-bordered table-striped">
@@ -112,7 +123,17 @@
                     `;
                 }, orderable: false, width: '100px', class: 'text-center'},
             ];
-
-         </script>
+        </script>
         <script  src="{{ asset('js/data.js') }}"></script>
+        <script type="text/javascript">
+            $('select[name=sex]').on('change', function() {
+                sex = $('select[name=sex]').val();
+
+                if(sex == 0) {
+                    controller.table.ajax.url(actionUrl).load();
+                }else {
+                    controller.table.ajax.url(actionUrl + '?sex=' + sex).load();
+                }
+            })
+        </script>
 @endpush 

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\User;
 use App\Models\Anggota;
 use App\Models\Peminjaman;
 use App\Models\Penerbit;
@@ -11,7 +12,8 @@ use App\Models\Buku;
 use App\Models\DetailPeminjaman;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-
+use Spatie\Permission\Models\Role;
+use Spatie\Permission\Models\Permission;
 
 class AdminController extends Controller
 {
@@ -24,6 +26,8 @@ class AdminController extends Controller
         // $data = Pengarang::with('buku')->get();
         // $data = Katalog::with('buku')->get();
         // $data = Buku::with('penerbit', 'pengarang', 'katalog')->get();
+        // $data = Peminjaman::with('detail_peminjaman')->get();
+
         // return $data;
 
         //query builder
@@ -76,7 +80,11 @@ class AdminController extends Controller
         $data_pie = Buku::select(DB::raw('COUNT(id_pengarang) as total'))->groupBy('id_pengarang')->orderBy('id_pengarang', 'asc')->pluck('total');
         $label_pie = Pengarang::orderBy('pengarangs.id', 'asc')->join('bukus', 'bukus.id_pengarang', '=', 'pengarangs.id')->groupBy('nama_pengarang')->pluck('nama_pengarang');
 
-        return view('admin/dashboard', compact('total_buku', 'total_anggota', 'total_peminjaman', 'total_penerbit', 'data_donut', 'label_donut', 'data_bar', 'data_pie', 'label_pie'));
+        if (!auth()->user()) {
+            return abort('403');
+        } else {
+            return view('admin/dashboard', compact('total_buku', 'total_anggota', 'total_peminjaman', 'total_penerbit', 'data_donut', 'label_donut', 'data_bar', 'data_pie', 'label_pie'));
+        }
     }
 
     public function katalog()
@@ -109,5 +117,44 @@ class AdminController extends Controller
         $data_pengarangs = Pengarang::all();
         $data_katalogs = Katalog::all();
         return view('admin.buku', compact(['data_bukus', 'data_penerbits', 'data_pengarangs', 'data_katalogs']));
+    }
+    public function peminjaman()
+    {
+
+        if (auth()->user()->can('index peminjaman')) {
+            $data_peminjaman = Peminjaman::all();
+            $anggotas = Anggota::all();
+            $bukus = Buku::where('qty_stok', '>', '0')->get();
+
+            return view('admin.peminjaman.peminjaman', compact('data_peminjaman', 'anggotas', 'bukus'));
+        } else {
+            return abort('403');
+        }
+    }
+
+    public function test_spatie()
+    {
+        // $role = Role::create(['name' => 'petugas']);
+        // $permission = Permission::create(['name' => 'index peminjaman']);
+        // $role->givePermissionTo($permission);
+        // $permission->assignRole($role);
+
+        // $user = User::where('id', 4)->first();
+        // $user->assignRole('petugas');
+        // return $user;
+
+
+        // $user = auth()->user();
+        // $user->assignRole('petugas');
+        // return $user;
+
+        // $user = User::with('roles')->get();
+        // return $user;
+
+        // $user = auth()->user();
+        // $user = User::where('id', 4)->first();
+        // $user->removeRole('petugas');
+        // return $user;
+
     }
 }
