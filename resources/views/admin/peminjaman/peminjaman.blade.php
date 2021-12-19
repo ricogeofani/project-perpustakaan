@@ -216,9 +216,7 @@
 
             // menghitung total bayar
             {render: function(index, row, data, meta) {
-                const harga_pinjam = data.buku.reduce( (accumulator, currentValue) => accumulator + currentValue.harga_pinjam, 0);
-                const total_buku = data.detail_peminjaman.reduce( (accumulator, currentValue) => accumulator + currentValue.qty, 0);
-                total_bayar = harga_pinjam * total_buku;
+                const total_bayar = data.buku.reduce( (accumulator, currentValue) => accumulator + currentValue.harga_pinjam, 0);
 
                 const rupiah = (total_bayar)=>{
                     return new Intl.NumberFormat("id-ID", {
